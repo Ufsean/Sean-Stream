@@ -1,0 +1,8 @@
+{
+    "name": "Sean Stream Repo",
+    "description": "Cloudstream Indonesian Repo",
+    "manifestVersion": 1,
+    "pluginLists": [
+      "https://raw.githubusercontent.com/Ufsean/Sean-Stream/builds/plugins.json"
+    ]
+}
