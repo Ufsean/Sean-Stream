@@ -1,6 +1,6 @@
-# Ufsean Repo: Kumpulan Ekstensi CloudStream untuk Konten Indonesia (Based on IndoStream & Hexated Repo)
+# Sean-Stream Repo: Kumpulan Ekstensi CloudStream untuk Konten Indonesia (Based on Hexated Repo)
 
-Ufsean Repo adalah kumpulan ekstensi CloudStream yang berfokus pada penyediaan konten streaming dari berbagai sumber di Indonesia. Repositori ini berisi ekstensi yang memperluas fungsionalitas aplikasi CloudStream, memungkinkan pengguna untuk menikmati berbagai macam film, serial, dan anime dari situs-situs populer di Indonesia.
+Sean-Stream Repo adalah kumpulan ekstensi CloudStream yang berfokus pada penyediaan konten streaming dari berbagai sumber di Indonesia. Repositori ini berisi ekstensi yang memperluas fungsionalitas aplikasi CloudStream, memungkinkan pengguna untuk menikmati berbagai macam film, serial, dan anime dari situs-situs populer di Indonesia.
 
 ## Fitur Utama
 
@@ -11,47 +11,18 @@ Ufsean Repo adalah kumpulan ekstensi CloudStream yang berfokus pada penyediaan k
 
 ## Daftar Ekstensi
 
-Berikut adalah daftar ekstensi yang tersedia di repositori IndoStream:
+Berikut adalah daftar ekstensi yang tersedia di repositori Sean-Stream:
 
 | Nama Ekstensi | Status                            |
 | ------------- | --------------------------------- |
-| Animasu       | ✅ Jalan |
-| AnimeIndo      | Error                             |
-| Animesail     | ✅ Jalan                             |
-| Anoboy        | Error                             |
-| Dramaid       | Link Error. Oppadrama jalan       |
-| DramaSerial   | Error                             |
-| Dubbindo      | ✅ Jalan                             |
-| Dutamovie     | Butuh VPN                         |
-| Funmovieslix  | ✅ Jalan                             |
-| Gomov         | Butuh VPN, Link Error             |
-| Gomunime      | Down                              |
-| Idlix         | Link Error                        |
-| IndoTV        | ✅ Jalan                             |
 | Kuramanime    | Butuh VPN, Link Error             |
-| Kuronime      | Link Error                        |
-| LayarKaca     | ✅ Jalan                             |
-| LayarAnime     | ✅ Jalan                             |
-| Minioppai     | Error                             |
-| Nekopoi       | ✅ Jalan, Butuh VPN                         |
-| Neonime       | Error                             |
-| Ngefilm       | Error                             |
-| Nimegami      | Jalan, perlu perbaikan menu       |
-| NontonAnimeID | Down                              |
-| Oploverz      | Down                              |
-| Otakudesu     | ✅ Jalan                             |
-| Pencurimovie  | ✅ Jalan                             |
-| Raveeflix     | Down                              |
-| Rebahin       | Butuh VPN, Link Error             |
-| Samehadaku    | ✅ Jalan                        |
-| UseeTv        | Error                             |
 
 ## Cara Menggunakan
 
 1.  Buka aplikasi CloudStream.
 2.  Buka menu "Ekstensi".
 3.  Klik tombol "Tambahkan Repositori".
-4.  Masukkan URL repositori CloudStreamExtension: https://raw.githubusercontent.com/Ufsean/cloudstreamextension/builds/repo.json
+4.  Masukkan URL repositori CloudStreamExtension: https://raw.githubusercontent.com/Ufsean/Sean-Stream/refs/heads/main/repo.json
 5.  Klik "Tambahkan".
 6.  Ekstensi yang tersedia akan muncul di daftar.
 7.  Pilih ekstensi yang ingin Anda instal dan klik "Instal".
