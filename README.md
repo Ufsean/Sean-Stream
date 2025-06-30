@@ -1,4 +1,4 @@
-# Sean-Stream Repo: Kumpulan Ekstensi CloudStream untuk Konten Indonesia (Based on Hexated Repo)
+# Sean-Stream Repo: Kumpulan Ekstensi CloudStream untuk Konten Indonesia
 
 Sean-Stream Repo adalah kumpulan ekstensi CloudStream yang berfokus pada penyediaan konten streaming dari berbagai sumber di Indonesia. Repositori ini berisi ekstensi yang memperluas fungsionalitas aplikasi CloudStream, memungkinkan pengguna untuk menikmati berbagai macam film, serial, dan anime dari situs-situs populer di Indonesia.
 
@@ -15,7 +15,15 @@ Berikut adalah daftar ekstensi yang tersedia di repositori Sean-Stream:
 
 | Nama Ekstensi | Status                            |
 | ------------- | --------------------------------- |
-| Kuramanime    | Butuh VPN, Link Error             |
+| Anichin       | ✅ Jalan, Butuh VPN                 |
+| AnimeFreak    | ✅ Jalan, Kadang Error (dari websitenya memang error videonya), Butuh VPN                 |
+| Animasu       | ✅ Jalan                 |
+| Animeindo     | ✅ Jalan             |
+| Kuramanime    | ⛔ Link Error             |
+| LayarAnime    | ✅ Jalan             |
+| Samehadaku    | ✅ Jalan, Mungkin Butuh VPN             |
+| Winbu         | ✅ Jalan             |
+
 
 ## Cara Menggunakan
 

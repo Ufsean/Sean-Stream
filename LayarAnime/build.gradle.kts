@@ -5,8 +5,8 @@ cloudstream {
     language = "id"
     // All of these properties are optional, you can safely remove them
 
-    description = "Ekstensi Kuramanime untuk CloudStream"
-    authors = listOf("Kuramanime Team")
+    // description = "Lorem Ipsum"
+     authors = listOf("Ufsean")
 
     /**
      * Status int as the following:
@@ -17,11 +17,10 @@ cloudstream {
      * */
     status = 1 // will be 3 if unspecified
     tvTypes = listOf(
-        "Anime",
         "AnimeMovie",
         "OVA",
-        "Donghua"
+        "Anime",
     )
 
-    iconUrl = "https://www.google.com/s2/favicons?domain=kuramanime.run&sz=%size%"
+    iconUrl = "https://www.google.com/s2/favicons?domain=layaranime.com&sz=%size%"
 }

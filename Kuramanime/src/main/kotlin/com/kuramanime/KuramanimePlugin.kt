@@ -1,18 +1,18 @@
 package com.kuramanime
 
-import android.content.Context
 import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
 import com.lagradost.cloudstream3.plugins.Plugin
+import android.content.Context
 
 @CloudstreamPlugin
-class KuramanimePlugin : Plugin() {
+class KuramanimePlugin: Plugin() {
     override fun load(context: Context) {
-        // All providers should be added in this manner. Please don't edit the providers list
-        // directly.
+        // Register the main provider
         registerMainAPI(Kuramanime())
+        
+        // You can register additional extractors here if needed
         registerExtractorAPI(Nyomo())
-        registerExtractorAPI(Streamhide())
-        registerExtractorAPI(Kuramadrive())
-        registerExtractorAPI(Linkbox())
+        registerExtractorAPI(FileMoon())
+        registerExtractorAPI(KuramaMain())
     }
 }

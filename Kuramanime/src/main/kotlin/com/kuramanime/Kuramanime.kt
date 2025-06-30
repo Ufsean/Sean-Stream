@@ -1,13 +1,16 @@
-package com.hexated
+package com.kuramanime
 
 import com.lagradost.cloudstream3.*
+import com.lagradost.cloudstream3.utils.*
 import com.lagradost.cloudstream3.LoadResponse.Companion.addAniListId
 import com.lagradost.cloudstream3.LoadResponse.Companion.addMalId
 import com.lagradost.cloudstream3.utils.ExtractorLink
+import com.lagradost.cloudstream3.utils.newExtractorLink
+import kotlinx.coroutines.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
-class KuramanimeProvider : MainAPI() {
+class Kuramanime : MainAPI() {
     override var mainUrl = "https://v8.kuramanime.run"
     override var name = "Kuramanime"
     override val hasQuickSearch = false
@@ -39,7 +42,7 @@ class KuramanimeProvider : MainAPI() {
     override val mainPage = mainPageOf(
             "$mainUrl/anime/ongoing?order_by=updated&page=" to "Sedang Tayang",
             "$mainUrl/anime/finished?order_by=updated&page=" to "Selesai Tayang",
-            "$mainUrl/properties/season/summer-2022?order_by=most_viewed&page=" to "Dilihat Terbanyak Musim Ini",
+            "$mainUrl/properties/season/spring-2025?order_by=most_viewed&page=" to "Dilihat Terbanyak Musim Ini",
             "$mainUrl/anime/movie?order_by=updated&page=" to "Film Layar Lebar",
     )
 
@@ -113,12 +116,14 @@ class KuramanimeProvider : MainAPI() {
             val doc = app.get("$url?page=$i").document
             val eps = Jsoup.parse(doc.select("#episodeLists").attr("data-content"))
                     .select("a.btn.btn-sm.btn-danger")
-                    .mapNotNull {
-                        val name = it.text().trim()
+                    .mapNotNull { element ->
+                        val name = element.text().trim()
                         val episode = Regex("(\\d+[.,]?\\d*)").find(name)?.groupValues?.getOrNull(0)
                                 ?.toIntOrNull()
-                        val link = it.attr("href")
-                        Episode(link, episode = episode)
+                        val link = element.attr("href")
+                        newEpisode(link) {
+                            this.episode = episode
+                        }
                     }
             if (eps.isEmpty()) break else episodes.addAll(eps)
         }
@@ -127,10 +132,10 @@ class KuramanimeProvider : MainAPI() {
                 document.selectFirst("div.col-lg-6.col-md-6 ul li:contains(Tipe:) a")?.text()
                         ?.lowercase() ?: "tv", episodes.size
         )
-        val recommendations = document.select("div#randomList > a").mapNotNull {
-            val epHref = it.attr("href")
-            val epTitle = it.select("h5.sidebar-title-h5.px-2.py-2").text()
-            val epPoster = it.select(".product__sidebar__view__item.set-bg").attr("data-setbg")
+        val recommendations = document.select("div#randomList > a").mapNotNull { anchor ->
+            val epHref = anchor.attr("href")
+            val epTitle = anchor.select("h5.sidebar-title-h5.px-2.py-2").text()
+            val epPoster = anchor.select(".product__sidebar__view__item.set-bg").attr("data-setbg")
             newAnimeSearchResponse(epTitle, epHref, TvType.Anime) {
                 this.posterUrl = epPoster
                 addDubStatus(dubExist = false, subExist = true)
