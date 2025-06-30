@@ -13,6 +13,6 @@ class KuramanimePlugin : Plugin() {
         registerExtractorAPI(Nyomo())
         registerExtractorAPI(Streamhide())
         registerExtractorAPI(Kuramadrive())
-        registerExtractorAPI(Lbx())
+        registerExtractorAPI(Linkbox())
     }
 }
