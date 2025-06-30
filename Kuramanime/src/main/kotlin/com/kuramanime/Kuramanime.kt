@@ -42,12 +42,12 @@ class Kuramanime : MainAPI() {
     }
 
     override val mainPage = mainPageOf(
-        "$mainUrl/anime/ongoing?order_by=updated" to "Sedang Tayang",
-        "$mainUrl/anime/finished?order_by=updated" to "Selesai Tayang",
-        "$mainUrl/anime/upcoming?order_by=popular" to "Segera Tayang",
-        "$mainUrl/anime/movie?order_by=updated" to "Film Layar Lebar",
+        "$mainUrl/anime/ongoing?order_by=updated&page=" to "Sedang Tayang",
+        "$mainUrl/anime/finished?order_by=updated&page=" to "Selesai Tayang",
+        "$mainUrl/anime/upcoming?order_by=popular&page=" to "Segera Tayang",
+        "$mainUrl/anime/movie?order_by=updated&page=" to "Film Layar Lebar",
         "$mainUrl/properties/genre" to "Daftar Genre",
-        "$mainUrl/anime/donghua?order_by=text" to "Donghua"
+        "$mainUrl/anime/donghua?order_by=text&page=" to "Donghua"
     )
 
     // Helper function to extract anime ID from URL
