@@ -3,6 +3,7 @@ package com.kuramanime
 import com.lagradost.cloudstream3.app
 import com.lagradost.cloudstream3.utils.ExtractorApi
 import com.lagradost.cloudstream3.utils.ExtractorLink
+import com.lagradost.cloudstream3.utils.ExtractorLinkType
 import com.lagradost.cloudstream3.utils.newExtractorLink
 import com.lagradost.cloudstream3.utils.Qualities
 
@@ -24,13 +25,14 @@ class VidGuardExtractor : ExtractorApi() {
 
         return listOf(
             newExtractorLink(
-                name,
-                name,
-                masterUrl,
+                source = name,
+                name = name,
+                url = masterUrl,
+                type = ExtractorLinkType.M3U8
             ) {
                 this.referer = referer ?: ""
-                this.quality = Qualities.Unknown.value
-                this.isM3u8 = true
+                this.quality = Qualities.P360.value
+                this.headers = mapOf("Referer" to (referer ?: ""))
             }
         )
     }

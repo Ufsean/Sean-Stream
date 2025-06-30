@@ -4,6 +4,7 @@ import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.LoadResponse.Companion.addAniListId
 import com.lagradost.cloudstream3.LoadResponse.Companion.addMalId
 import com.lagradost.cloudstream3.utils.ExtractorLink
+import com.lagradost.cloudstream3.utils.ExtractorLinkType
 import com.lagradost.cloudstream3.utils.Qualities
 import com.lagradost.cloudstream3.utils.newExtractorLink
 import com.lagradost.cloudstream3.amap
@@ -34,7 +35,7 @@ class Kuramanime : MainAPI() {
             return when (t.lowercase()) {
                 "selesai", "completed" -> ShowStatus.Completed
                 "ongoing", "sedang tayang" -> ShowStatus.Ongoing
-                "not yet aired" -> ShowStatus.ComingSoon
+                "not yet aired", "coming soon" -> ShowStatus.Ongoing
                 else -> ShowStatus.Completed
             }
         }
@@ -193,12 +194,8 @@ class Kuramanime : MainAPI() {
             
             // Add additional metadata
             metadata["skor"]?.toFloatOrNull()?.let { rating ->
-                this.rating = rating / 10f * 5f // Convert 10-point scale to 5-point scale
-            }
-            
-            // Add studio if available
-            metadata["studio"]?.takeIf { it.isNotBlank() }?.let { studio ->
-                this.studio = studio
+                // Convert 10-point scale to 5-point scale and round to nearest integer
+                this.rating = (rating / 2f).toInt()
             }
         }
     }
@@ -222,18 +219,20 @@ class Kuramanime : MainAPI() {
                         "hd" -> Qualities.P720.value
                         "full hd" -> Qualities.P1080.value
                         "sd" -> Qualities.P480.value
-                        else -> Qualities.UnknownQuality.value
+                        else -> Qualities.P360.value // Default to 360p if unknown
                     }
                     
                     callback.invoke(
                         newExtractorLink(
-                            name,
-                            "Direct",
-                            videoUrl,
-                            referer = mainUrl,
-                            quality = quality,
-                            isM3u8 = videoUrl.contains(".m3u8")
-                        )
+                            source = name,
+                            name = "Direct",
+                            url = videoUrl,
+                            type = if (videoUrl.contains(".m3u8")) ExtractorLinkType.M3U8 else ExtractorLinkType.VIDEO
+                        ) {
+                            this.referer = mainUrl
+                            this.quality = quality
+                            this.headers = mapOf("Referer" to mainUrl)
+                        }
                     )
                 }
             }
@@ -273,12 +272,15 @@ class Kuramanime : MainAPI() {
                         // Handle KuramaDrive
                         callback.invoke(
                             newExtractorLink(
-                                name,
-                                "KuramaDrive",
-                                videoUrl,
-                                referer = mainUrl,
-                                quality = Qualities.P720.value
-                            )
+                                source = name,
+                                name = "KuramaDrive",
+                                url = videoUrl,
+                                type = if (videoUrl.contains(".m3u8")) ExtractorLinkType.M3U8 else ExtractorLinkType.VIDEO
+                            ) {
+                                this.referer = mainUrl
+                                this.quality = Qualities.P720.value
+                                this.headers = mapOf("Referer" to mainUrl)
+                            }
                         )
                     }
                     else -> {
