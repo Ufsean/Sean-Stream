@@ -19,6 +19,7 @@ Berikut adalah daftar ekstensi yang tersedia di repositori Sean-Stream:
 | AnimeFreak    | ✅ Jalan, Kadang Error (dari websitenya memang error videonya), Butuh VPN                 |
 | Animasu       | ✅ Jalan                 |
 | Animeindo     | ✅ Jalan             |
+| JuraganFilm     | ✅ VPN            |
 | Kuramanime    | ⛔ Link Error             |
 | LayarAnime    | ✅ Jalan             |
 | Samehadaku    | ✅ Jalan, Mungkin Butuh VPN             |
