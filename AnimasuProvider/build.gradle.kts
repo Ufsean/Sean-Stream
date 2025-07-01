@@ -10,7 +10,7 @@ cloudstream {
     language = "id"
     // All of these properties are optional, you can safely remove them
 
-    description = "Ekstensi Kuramanime untuk CloudStream"
+    //description = "Ekstensi Kuramanime untuk CloudStream"
     authors = listOf("Ufsean")
 
     /**
