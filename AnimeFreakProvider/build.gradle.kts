@@ -24,7 +24,7 @@ cloudstream {
 
     requiresResources = false
     language = "id"
-    iconUrl = "https://animefreak.biz/avicon.ico"
+    iconUrl = "https://www.google.com/s2/favicons?domain=animefreak.biz&sz=%size%"
 }
 
 android {

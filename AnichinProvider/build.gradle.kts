@@ -35,7 +35,7 @@ cloudstream {
 
     requiresResources = false
     language = "id"
-    iconUrl = "https://anichin.cafe/favicon.ico"
+    iconUrl = "https://www.google.com/s2/favicons?domain=anichin.cafe&sz=%size%"
 }
 
 android {

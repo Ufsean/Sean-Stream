@@ -15,7 +15,7 @@ Berikut adalah daftar ekstensi yang tersedia di repositori Sean-Stream:
 
 | Nama Ekstensi | Status                            |
 | ------------- | --------------------------------- |
-| Anichin       | ✅ Jalan, Butuh VPN                 |
+| Anichin       | ✅ Jalan, Kadang Butuh VPN                 |
 | AnimeFreak    | ✅ Jalan, Kadang Error (dari websitenya memang error videonya), Butuh VPN                 |
 | Animasu       | ✅ Jalan                 |
 | Animeindo     | ✅ Jalan             |
