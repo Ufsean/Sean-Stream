@@ -3,7 +3,9 @@ package com.anichin
 import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
+import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
+import java.util.Base64
 
 class AnichinProvider : MainAPI() {
     override var mainUrl = "https://anichin.cafe"
@@ -86,13 +88,36 @@ class AnichinProvider : MainAPI() {
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ): Boolean {
-        val doc = app.get(data).document
-        doc.select("div.player-embed iframe").forEach { iframe ->
-            val url = iframe.attr("src")
-            if (url.isNotBlank()) {
-                loadExtractor(url, data, subtitleCallback, callback)
+        val document = app.get(data).document
+        val sources = mutableListOf<String>()
+
+        // Handle the default player
+        document.select("div.player-embed iframe").firstOrNull()?.attr("src")?.let {
+            sources.add(it)
+        }
+
+        // Handle other servers from the dropdown
+        document.select("select.mirror option").forEach { option ->
+            val value = option.attr("value")
+            if (value.isNotBlank()) {
+                try {
+                    val decodedValue = String(Base64.getDecoder().decode(value))
+                    val iframe = Jsoup.parse(decodedValue).selectFirst("iframe")
+                    iframe?.attr("src")?.let { src ->
+                        if (!sources.contains(src)) {
+                            sources.add(src)
+                        }
+                    }
+                } catch (e: Exception) {
+                    // Ignore if base64 decoding fails
+                }
             }
         }
+        
+        sources.forEach { url ->
+            loadExtractor(url, data, subtitleCallback, callback)
+        }
+
         return true
     }
 

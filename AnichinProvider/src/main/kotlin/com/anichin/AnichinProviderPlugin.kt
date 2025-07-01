@@ -9,5 +9,10 @@ class AnichinProviderPlugin: Plugin() {
     override fun load(context: Context) {
         // Register the main provider
         registerMainAPI(AnichinProvider())
+        registerExtractorAPI(AnichinExtractor())
+        registerExtractorAPI(OkCdn())
+        registerExtractorAPI(Rumble())
+        registerExtractorAPI(ShortIcu())
+        registerExtractorAPI(RubyVidHub())
     }
 }
