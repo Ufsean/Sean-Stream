@@ -10,6 +10,7 @@
 .cxx
 local.properties
 .vscodetest.txt
+.blackboxrules
 AnichinProvider/build
 AnimasuProvider/build
 AnimeFreakProvider/build
