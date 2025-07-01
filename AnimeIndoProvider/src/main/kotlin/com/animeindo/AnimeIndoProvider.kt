@@ -58,28 +58,27 @@ class AnimeIndoProvider : MainAPI() {
             // Ignore
         }
 
-        try {
-            val genreDocument = app.get("$mainUrl/list-genre/").document
-            val genres = genreDocument.select("div.list-genre a").mapNotNull {
-                val title = it.text()
-                val href = it.attr("href")
-                newAnimeSearchResponse(title, href) // Genre links are absolute
+        val genresToAdd = listOf("action", "adventure", "anthropomorphic", "cars", "cgdct",
+        "comedy", "dementia", "demons", "detective", "donghua", "drama","fantasy", "game", "isekai", 
+        "josei","live-action", 
+        "magic", "mahou-shoujo",
+        "organized-crime",
+        "racing", "reincarnation", "romance", "video-game","workplace")
+        genresToAdd.forEach { genre ->
+            try {
+                val genreDocument = app.get("$mainUrl/genres/$genre/").document
+                val animes = genreDocument.select("table.otable tr").mapNotNull {
+                    val title = it.selectFirst("a")?.text() ?: return@mapNotNull null
+                    val href = it.selectFirst("a")?.attr("href") ?: return@mapNotNull null
+                    val posterUrl = it.selectFirst("img")?.attr("src")
+                    newAnimeSearchResponse(title, "$mainUrl$href") {
+                        posterUrl?.let { this.posterUrl = "$mainUrl$it" }
+                    }
+                }.take(10)
+                homePageList.add(HomePageList("${genre.replaceFirstChar { it.uppercase() }}", animes))
+            } catch (e: Exception) {
+                // Ignore
             }
-            homePageList.add(HomePageList("Daftar Genre", genres))
-        } catch (e: Exception) {
-            // Ignore
-        }
-
-        try {
-            val jadwalDocument = app.get("$mainUrl/jadwal/").document
-            val jadwal = jadwalDocument.select("table.ztable tr").mapNotNull {
-                val title = it.selectFirst("a")?.text() ?: return@mapNotNull null
-                val href = it.selectFirst("a")?.attr("href") ?: return@mapNotNull null
-                newAnimeSearchResponse(title, "$mainUrl$href")
-            }
-            homePageList.add(HomePageList("Jadwal Rilis", jadwal))
-        } catch (e: Exception) {
-            // Ignore
         }
 
         return newHomePageResponse(homePageList)
@@ -100,6 +99,22 @@ class AnimeIndoProvider : MainAPI() {
 
     override suspend fun load(url: String): LoadResponse? {
         val document = app.get(url).document
+
+        if (url.contains("/genres/")) {
+            val title = document.selectFirst("div.title")?.text()?.replace("Genre ", "")?.trim() ?: return null
+            val animes = document.select("table.otable tr").mapNotNull {
+                val title = it.selectFirst("a")?.text() ?: return@mapNotNull null
+                val href = it.selectFirst("a")?.attr("href") ?: return@mapNotNull null
+                val posterUrl = it.selectFirst("img")?.attr("src")
+                newAnimeSearchResponse(title, "$mainUrl$href") {
+                    posterUrl?.let { this.posterUrl = "$mainUrl$it" }
+                }
+            }
+
+            return newAnimeLoadResponse(title, url, TvType.Anime) {
+                this.recommendations = animes
+            }
+        }
 
         val title = document.selectFirst("h1.title")?.text()?.trim() ?: return null
         val poster = document.selectFirst("div.detail img")?.attr("src")?.let { "$mainUrl$it" }
