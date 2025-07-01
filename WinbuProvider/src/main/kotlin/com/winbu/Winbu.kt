@@ -3,7 +3,6 @@ package com.winbu
 import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
-import com.lagradost.cloudstream3.utils.getQualityFromName
 import org.jsoup.nodes.Element
 
 class Winbu : MainAPI() {
@@ -83,7 +82,6 @@ class Winbu : MainAPI() {
             val post = it.attr("data-post")
             val nume = it.attr("data-nume")
             val type = it.attr("data-type")
-            val qualityName = it.text()
 
             val response = app.post(
                 "$mainUrl/wp-admin/admin-ajax.php",
@@ -107,7 +105,6 @@ class Winbu : MainAPI() {
 
         // Handle direct download links
         document.select("div.download-eps li").forEach {
-            val quality = it.selectFirst("strong")?.text()
             it.select("a").forEach { link ->
                 val url = link.attr("href")
                 if (url.contains("buzzheavier.com")) {
@@ -119,53 +116,18 @@ class Winbu : MainAPI() {
         return true
     }
 
-    override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse? {
-        val document = app.get(mainUrl).document
+    override val mainPage = mainPageOf(
+        "$mainUrl/animedonghua/page/" to "Anime Donghua Terbaru",
+        "$mainUrl/film/page/" to "Film Terbaru",
+        "$mainUrl/jepangkoreachina/page/" to "Jepang Korea China Barat",
+        "$mainUrl/tvshow/page/" to "TV Show"
+    )
 
-        val homePageList = mutableListOf<HomePageList>()
-
-        val topSeries = document.select("div.movies-list-wrap").first()?.select("div.ml-item-potrait")?.mapNotNull {
+    override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
+        val document = app.get(request.data + page).document
+        val home = document.select("div.movies-list div.ml-item").mapNotNull {
             toSearchResponse(it)
         }
-        if (!topSeries.isNullOrEmpty()) {
-            homePageList.add(HomePageList("Top 10 Series", topSeries, isHorizontalImages = true))
-        }
-
-        val newAnime = document.select("div.list-title:contains(Anime Donghua Terbaru) + div.movies-list div.ml-item").mapNotNull {
-            toSearchResponse(it)
-        }
-        if (!newAnime.isNullOrEmpty()) {
-            homePageList.add(HomePageList("Anime Donghua Terbaru", newAnime))
-        }
-        
-        val topMovies = document.select("div.movies-list-wrap:contains(Top 10 Film)").first()?.select("div.ml-item-potrait")?.mapNotNull {
-            toSearchResponse(it)
-        }
-        if (!topMovies.isNullOrEmpty()) {
-            homePageList.add(HomePageList("Top 10 Film", topMovies, isHorizontalImages = true))
-        }
-
-        val newMovies = document.select("div.list-title:contains(Film Terbaru) + div.movies-list div.ml-item").mapNotNull {
-            toSearchResponse(it)
-        }
-        if (!newMovies.isNullOrEmpty()) {
-            homePageList.add(HomePageList("Film Terbaru", newMovies))
-        }
-
-        val others = document.select("div.list-title:contains(Jepang Korea China Barat) + div.movies-list div.ml-item").mapNotNull {
-            toSearchResponse(it)
-        }
-        if (!others.isNullOrEmpty()) {
-            homePageList.add(HomePageList("Jepang Korea China Barat", others))
-        }
-
-        val tvShow = document.select("div.list-title:contains(TV Show) + div.movies-list div.ml-item").mapNotNull {
-            toSearchResponse(it)
-        }
-        if (!tvShow.isNullOrEmpty()) {
-            homePageList.add(HomePageList("TV Show", tvShow))
-        }
-
-        return newHomePageResponse(homePageList)
+        return newHomePageResponse(request.name, home)
     }
 }
