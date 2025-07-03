@@ -1,11 +1,12 @@
 // use an integer for version numbers
 version = 1
 
+
 cloudstream {
     language = "id"
     // All of these properties are optional, you can safely remove them
 
-    //description = "Ekstensi Kuramanime untuk CloudStream"
+    // description = "Lorem Ipsum"
     authors = listOf("Ufsean")
 
     /**
@@ -16,12 +17,9 @@ cloudstream {
      * 3: Beta only
      * */
     status = 3 // will be 3 if unspecified
-    tvTypes = listOf(
-        "Anime",
-        "AnimeMovie",
-        "OVA",
-        "Donghua"
-    )
+    tvTypes = listOf("Movie","TvSeries")
 
-    iconUrl = "https://www.google.com/s2/favicons?domain=kuramanime.run&sz=%size%"
+    iconUrl = "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://ww03.pencurimovie.bond&size=%size%"
+
+    isCrossPlatform = true
 }

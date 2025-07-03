@@ -161,13 +161,14 @@ class Kuramanime : MainAPI() {
     }
 
     override suspend fun loadLinks(
-            data: String,
-            isCasting: Boolean,
-            subtitleCallback: (SubtitleFile) -> Unit,
-            callback: (ExtractorLink) -> Unit
+        data: String,
+        isCasting: Boolean,
+        subtitleCallback: (SubtitleFile) -> Unit,
+        callback: (ExtractorLink) -> Unit
     ): Boolean {
-
-        return true
+        // Baris ini SANGAT PENTING.
+        // Ini yang akan memanggil extractor KuramaMain Anda.
+        return loadExtractor(data, data, subtitleCallback, callback)
     }
 
 }

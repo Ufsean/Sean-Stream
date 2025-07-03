@@ -1,11 +1,12 @@
 // use an integer for version numbers
-version = 1
+version = 3
+
 
 cloudstream {
     language = "id"
     // All of these properties are optional, you can safely remove them
 
-    //description = "Ekstensi Kuramanime untuk CloudStream"
+    // description = "Lorem Ipsum"
     authors = listOf("Ufsean")
 
     /**
@@ -17,11 +18,13 @@ cloudstream {
      * */
     status = 3 // will be 3 if unspecified
     tvTypes = listOf(
-        "Anime",
-        "AnimeMovie",
-        "OVA",
-        "Donghua"
+        "AsianDrama",
+        "TvSeries",
+        "Movie",
     )
 
-    iconUrl = "https://www.google.com/s2/favicons?domain=kuramanime.run&sz=%size%"
+
+    iconUrl = "https://www.google.com/s2/favicons?domain=tv7.lk21.am.in&sz=%size%"
+
+    isCrossPlatform = true
 }
