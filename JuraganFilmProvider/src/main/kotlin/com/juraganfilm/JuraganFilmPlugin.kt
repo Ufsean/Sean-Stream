@@ -8,5 +8,7 @@ import android.content.Context
 class JuraganFilmPlugin: Plugin() {
     override fun load(context: Context) {
         registerMainAPI(JuraganFilmProvider())
+        registerExtractorAPI(GetBk())
+        registerExtractorAPI(GdriveHls())
     }
 }

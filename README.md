@@ -20,6 +20,7 @@ Berikut adalah daftar ekstensi yang tersedia di repositori Sean-Stream:
 | Animasu       | ✅ Jalan                 |
 | Animeindo     | ✅ Jalan             |
 | AnimeSail     | ✅ Jalan             |
+| Anoboy     | ✅ Jalan, Angin"an         |
 | JuraganFilm     | ✅ VPN            |
 | LayarAnime    | ✅ Jalan             |
 | LK21    | ✅ Jalan           |
